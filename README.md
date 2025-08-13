@@ -6,7 +6,7 @@ This is a template for quickly creating Python projects with modern tooling and 
 
 **After creating your project from this template, update these 3 things:**
 
-1. **`pyproject.toml`** - Replace `${{ repo_name }}` placeholders with your project name
+1. **`pyproject.toml`** - Replace `python_project_template` placeholders with your project name
 2. **`src/python_project_template/`** - Rename this directory to match your package name  
 3. **`README.md`** - Update the title and description
 
@@ -19,7 +19,7 @@ This is a template for quickly creating Python projects with modern tooling and 
 
 **🚀 Quick Setup** (one command to customize everything):
 ```bash
-./template_scripts/get_started/setup_project.sh "my-awesome-project"
+bash template_scripts/get_started/setup_project.sh "my-awesome-project"
 ```
 
 ## 🛠️ Setup
