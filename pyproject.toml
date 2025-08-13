@@ -112,5 +112,5 @@ skip-magic-trailing-comma = false
 line-ending = "auto"
 
 [tool.ruff.lint.isort]
-known-first-party = ["project_template"]
+known-first-party = ["python_project_template"]
 
