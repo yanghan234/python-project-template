@@ -7,9 +7,8 @@ on:
     branches: [ main ]
 
 jobs:
-  test:
+  install:
     strategy:
-      # Run jobs for all combinations of OS and Python, even if one fails
       fail-fast: false
       matrix:
         python-version: ["3.13"]
