@@ -1,5 +1,5 @@
 [project]
-name = "${{ repo_name }}"
+name = "python-project-template"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -9,7 +9,7 @@ dependencies = [
 ]
 
 [project.scripts]
-${{ repo_name | replace("-", "") }} = "${{ repo_name | replace("-", "_") }}:main"
+project-template = "python_project_template:main"
 
 [dependency-groups]
 dev = [
@@ -112,5 +112,5 @@ skip-magic-trailing-comma = false
 line-ending = "auto"
 
 [tool.ruff.lint.isort]
-known-first-party = ["${{ repo_name | replace('-', '_') }}"]
+known-first-party = ["python_project_template"]
 

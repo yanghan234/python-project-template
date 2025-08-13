@@ -15,9 +15,11 @@ This is a template for quickly creating Python projects with modern tooling and 
 - Directory: `src/python_project_template/` → `src/my_awesome_project/`
 - `README.md`: `# my-awesome-project`
 
+**Note**: The template uses vanilla names that will be automatically updated by the setup script.
+
 **🚀 Quick Setup** (one command to customize everything):
 ```bash
-./scripts/get_started/setup_project.sh "my-awesome-project"
+./template_scripts/get_started/setup_project.sh "my-awesome-project"
 ```
 
 ## 🛠️ Setup

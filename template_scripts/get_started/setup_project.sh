@@ -15,8 +15,8 @@
 # from the python-project-template repository.
 #
 # USAGE:
-#   ./scripts/get_started/setup_project.sh "my-awesome-project"
-#   ./scripts/get_started/setup_project.sh "my-awesome-project" --help
+#   ./template_scripts/get_started/setup_project.sh "my-awesome-project"
+#   ./template_scripts/get_started/setup_project.sh "my-awesome-project" --help
 #
 # WHAT IT DOES:
 #   1. Updates pyproject.toml with your project name
@@ -94,7 +94,7 @@ show_help() {
 ${BOLD}Python Project Template - Quick Setup Script${NC}
 
 ${BOLD}USAGE:${NC}
-    ./scripts/get_started/setup_project.sh PROJECT_NAME [OPTIONS]
+    ./template_scripts/get_started/setup_project.sh PROJECT_NAME [OPTIONS]
 
 ${BOLD}ARGUMENTS:${NC}
     PROJECT_NAME    Your project name (use kebab-case like "my-awesome-project")
@@ -110,9 +110,9 @@ ${BOLD}ENVIRONMENT VARIABLES:${NC}
     DEBUG_COLORS=1  Enable color debugging (shows color codes)
 
 ${BOLD}EXAMPLES:${NC}
-    ./scripts/get_started/setup_project.sh "data-analyzer"
-    ./scripts/get_started/setup_project.sh "web-scraper" --verbose
-    ./scripts/get_started/setup_project.sh "ml-pipeline" --dry-run
+    ./template_scripts/get_started/setup_project.sh "data-analyzer"
+    ./template_scripts/get_started/setup_project.sh "web-scraper" --verbose
+    ./template_scripts/get_started/setup_project.sh "ml-pipeline" --dry-run
 
 ${BOLD}WHAT THIS SCRIPT DOES:${NC}
     1. Validates your project name
@@ -212,25 +212,21 @@ update_pyproject() {
     # Create backup
     cp pyproject.toml pyproject.toml.backup
     
-    # Update project name
-    if grep -q '\${{ repo_name }}' pyproject.toml; then
-        sed -i.tmp "s/\${{ repo_name }}/$project_name/g" pyproject.toml
-        print_success "Updated project name to: $project_name"
-    else
-        print_warning "Template placeholders not found in pyproject.toml - file might already be customized"
-    fi
+    # Update project name (replace the vanilla template name)
+    sed -i.tmp "s/name = \"python-project-template\"/name = \"$project_name\"/g" pyproject.toml
+    print_success "Updated project name to: $project_name"
     
-    # Update script name
-    if grep -q '\${{ repo_name | replace("-", "") }}' pyproject.toml; then
-        sed -i.tmp "s/\${{ repo_name | replace(\"-\", \"\") }}/$script_name/g" pyproject.toml
-        print_success "Updated script name to: $script_name"
-    fi
+    # Update script name (replace the vanilla template script name)
+    sed -i.tmp "s/project-template = \"python_project_template:main\"/$script_name = \"$package_name:main\"/g" pyproject.toml
+    print_success "Updated script name to: $script_name"
     
-    # Update package name
-    if grep -q '\${{ repo_name | replace("-", "_") }}' pyproject.toml; then
-        sed -i.tmp "s/\${{ repo_name | replace(\"-\", \"_\") }}/$package_name/g" pyproject.toml
-        print_success "Updated package references to: $package_name"
-    fi
+    # Update package name in script reference
+    sed -i.tmp "s/python_project_template:main/$package_name:main/g" pyproject.toml
+    print_success "Updated package reference to: $package_name"
+    
+    # Update known-first-party for ruff
+    sed -i.tmp "s/known-first-party = \[\"python_project_template\"\]/known-first-party = [\"$package_name\"]/g" pyproject.toml
+    print_success "Updated ruff known-first-party to: $package_name"
     
     # Clean up temporary files
     rm -f pyproject.toml.tmp
