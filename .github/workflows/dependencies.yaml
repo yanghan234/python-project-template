@@ -1,0 +1,54 @@
+name: Update Dependencies
+
+on:
+  schedule:
+    # Run every Monday at 9 AM UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+
+jobs:
+  update-deps:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.13"
+        
+    - name: Install pip-tools
+      run: |
+        python -m pip install --upgrade pip
+        pip install pip-tools
+        
+    - name: Update requirements
+      run: |
+        if [ -f requirements.in ]; then
+          pip-compile --upgrade requirements.in
+        fi
+        if [ -f pyproject.toml ]; then
+          pip install pip-tools
+          pip-compile --upgrade pyproject.toml
+        fi
+        
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v5
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        commit-message: 'chore: update dependencies'
+        title: 'chore: update dependencies'
+        body: |
+          This PR updates project dependencies to their latest versions.
+          
+          ## Changes
+          - Updated Python package dependencies
+          - Generated new requirements files
+          
+          ## Checklist
+          - [ ] Tests pass
+          - [ ] Code quality checks pass
+          - [ ] No breaking changes introduced
+        branch: update-dependencies
+        delete-branch: true
