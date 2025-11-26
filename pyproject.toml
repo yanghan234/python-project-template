@@ -16,7 +16,7 @@ dev = [
     "ipython>=9.4.0",
     "jupyter>=1.1.1",
     "pre-commit>=4.3.0",
-    "ruff>=0.12.8",
+    "ruff==0.5.5",
 ]
 
 [build-system]
@@ -73,7 +73,6 @@ select = [
     "S",   # flake8-bandit
     "SIM", # flake8-simplify
     "SLF", # flake8-self
-    "SLOT",# flake8-slots
     "T20", # flake8-print
     "TCH", # flake8-type-checking
     "TID", # flake8-tidy-imports
@@ -113,4 +112,3 @@ line-ending = "auto"
 
 [tool.ruff.lint.isort]
 known-first-party = ["python_project_template"]
-
