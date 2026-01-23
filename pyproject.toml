@@ -16,7 +16,7 @@ dev = [
     "ipython>=9.4.0",
     "jupyter>=1.1.1",
     "pre-commit>=4.3.0",
-    "ruff==0.5.5",
+    "ruff==0.14.14",
 ]
 
 [build-system]
